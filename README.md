@@ -5,17 +5,19 @@ PL/SQL'de hata yönetimi (Exception Handling), programın beklenmeyen durumlarda
 
 PL/SQL’de hata yönetimi şu üç ana blok içinde yer alır:
 
+```sql
 BEGIN
     -- Normal kodlar
 EXCEPTION
     WHEN <istisna_adı> THEN
         -- Hata durumunda yapılacak işlemler
 END;
+```
 
 ✅ 1. NO_DATA_FOUND Örneği
 
 SELECT INTO komutu veri bulamazsa NO_DATA_FOUND hatası oluşur.
-
+```sql
 DECLARE
     v_salary NUMBER;
 BEGIN
@@ -26,14 +28,14 @@ EXCEPTION
         DBMS_OUTPUT.PUT_LINE('Hata: Bu çalışan bulunamadı!');
 END;
 /
-
+```
 📌 Çalıştırma Sonucu:
 Hata: Bu çalışan bulunamadı!
 
 ✅ 2. TOO_MANY_ROWS Örneği
 
 Eğer SELECT INTO sorgusu birden fazla satır döndürürse, TOO_MANY_ROWS hatası meydana gelir.
-
+```sql
 DECLARE
     v_salary NUMBER;
 BEGIN
@@ -43,14 +45,14 @@ EXCEPTION
         DBMS_OUTPUT.PUT_LINE('Hata: Birden fazla çalışan bulundu, lütfen sorguyu daraltın!');
 END;
 /
-
+```
 📌 Çalıştırma Sonucu:
 Hata: Birden fazla çalışan bulundu, lütfen sorguyu daraltın!
 
 ✅ 3. ZERO_DIVIDE Örneği
 
 Bir sayıyı sıfıra bölerseniz, ZERO_DIVIDE hatası oluşur.
-
+```sql
 DECLARE
     v_result NUMBER;
 BEGIN
@@ -60,14 +62,14 @@ EXCEPTION
         DBMS_OUTPUT.PUT_LINE('Hata: Bir sayı sıfıra bölünemez!');
 END;
 /
-
+```
 📌 Çalıştırma Sonucu:
 Hata: Bir sayı sıfıra bölünemez!
 
 ✅ 4. OTHERS ile Tüm Hataları Yakalama
 
 Tüm diğer hatalar için WHEN OTHERS THEN kullanılabilir.
-
+```sql
 DECLARE
     v_salary NUMBER;
 BEGIN
@@ -81,12 +83,12 @@ EXCEPTION
         DBMS_OUTPUT.PUT_LINE('Genel Hata: ' || SQLERRM);
 END;
 /
-
+```
 📌 SQLERRM: Hata mesajını döndürür.
 🔥 Özel Exception Tanımlama
 
 Eğer kendi özel hata yönetimini oluşturmak isterseniz EXCEPTION tanımlayıp RAISE ile hata fırlatabilirsiniz.
-
+```sql
 DECLARE
     v_salary NUMBER;
     salary_not_found EXCEPTION; -- Özel hata tanımlandı
@@ -101,7 +103,7 @@ EXCEPTION
         DBMS_OUTPUT.PUT_LINE('Özel Hata: Maaş bilgisi bulunamadı!');
 END;
 /
-
+```
 📌 Çalıştırma Sonucu:
 Özel Hata: Maaş bilgisi bulunamadı!
 
